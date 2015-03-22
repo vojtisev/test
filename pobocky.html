@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pobočky NOVÁK maso-uzeniny</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      .wrap { max-width: 75em; min-height: 40em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
+      #map-canvas { height: 90%;border: 5px solid #007a5e;
+      -moz-box-shadow: 0 3px 3px 3px rgba(0,0,0,0.9), 0 0 0 3px #000;
+      -webkit-box-shadow: 0 3px 3px 3px rgba(0,0,0,0.9), 0 0 0 3px #000;
+      box-shadow: 0 3px 3px 3px rgba(0,0,0,0.9), 0 0 0 3px #000;
+       }
+          
+    .button3 {
+        background:#eee;
+        text-decoration:none;
+        color:#333;
+        font-family:Arial, sans-serif;
+        font-size:11px;
+        font-weight:bold;
+        padding:3px 5px;
+        border:1px solid #aaa;
+        border-radius:3px;
+        cursor:default;
+    }
+    
+    .button3:hover {
+        background-color:#f2f2f2;
+        border-color:#888;
+        box-shadow:0 0 2px #ccc;
+    }
+    
+    .button3:active {
+        vertical-align:-1px;
+    }
+       
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true">
+    </script>
+    <script type="text/javascript">
+      var map;
+      var centerPos = new google.maps.LatLng(49.8037633,15.4749126);
+      var zoomLevel = 8;
+      function LogoControl(controlDiv, map) {
+ 
+  controlDiv.style.padding = '5px';
+
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundImage = 'url(images/logo.png)';
+  controlUI.style.width = '289px';
+  controlUI.style.height = '120px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.title = 'Zobrazit všechny pobočky na mapě';
+  controlDiv.appendChild(controlUI);
+ 
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    map.setCenter(centerPos)
+    map.setZoom(zoomLevel)
+  }); 
+ 
+}
+      function initialize() {
+      
+        var styles = [
+        {
+    "featureType": "administrative.country",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      { "weight": 8 },
+      { "color": "#007a5e" }
+    ]
+  },{
+    "featureType": "landscape",
+    "elementType": "geometry.fill",
+    "stylers": [
+      { "hue": "#00ff19" },
+      { "weight": 5 },
+      { "color": "#58db47" },
+      { "saturation": -39 },
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "road",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "transit",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "water",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "poi",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "administrative.locality",
+    "elementType": "labels.text",
+    "stylers": [
+      { "color": "#808080" },
+      { "hue": "#ff0000" },
+      { "visibility": "off" }
+    ]
+  }
+      ];
+        
+        var mapOptions = {
+          center: centerPos,
+          zoom: zoomLevel
+        };
+        map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
+
+        var locations = [
+        ["Pobočka NOVÁK maso-uzeniny - TESCO U Vodojemu 992, 391 65  Bechyně ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.302951","14.47619"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Tovární 111, 294 71  Benátky n. Jizerou ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.286975","14.827649"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Děčínská ul., 407 22  Benešov nad Ploučnicí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.745125","14.318452"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Za Chlumem 822, 418 01   Bílina ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.553221","13.786221"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Pivovarská 116, 418 01  Bílina ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.550262","13.774282"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Přístavní 1321, 635 00  Brno - Bystrc ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.228856","16.522297"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Tovární 595, 257 22  Čerčany ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.963741","14.325982"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Radotínská 39 - Černošice  Černošice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.692529","14.543434"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Žitavská 3022, 470 06  Česká Lípa ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","48.983916","14.439333"],
+["Pobočka NOVÁK maso-uzeniny - PENNY M. Horákové 1583, 370 05    České Budějovice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.072874","14.864176"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Jana Kouly 1370, 282 01  Český Brod ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.781271","14.153868"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Teplická 761/107, 405 05   Děčín ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.288997","16.167531"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Solnická 59, 518 01  Dobruška ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","49.791254","14.186699"],
+["Pobočka NOVÁK maso-uzeniny - JTH Pražská ul. 262 02 Dobříš  Dobříš ","Otevírací doba (PO - PÁ): 7 - 19 ","Otevírací doba (SO): 7 - 19 ","Otevírací doba (NE): 7 - 15 ","50.566014","14.649611"],
+["Pobočka NOVÁK maso-uzeniny - JTH Zámecká 982, 472 01 Doksy  Doksy ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.439406","12.93676"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Husova 241, 344 01   Domažlice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.610892","13.739872"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Osecká 1317, 419 01  Duchcov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.429055","15.817924"],
+["Pobočka NOVÁK maso-uzeniny - PENNY 17.listopadu 3018, 544 01  Dvůr Králové ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.920359","15.080556"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Hejnická 1136, 464 01  Frýdlant ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.183169","12.551109"],
+["Pobočka NOVÁK maso-uzeniny - TESCO ul. 1.máje 584/1, 357 09  Habartov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.617007","15.572853"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Masarykova 3552, 580 01  Havlíčkův Brod ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.766824","15.917939"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Poličská 1625, 539 01  Hlinsko ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.895743","18.196457"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Cihelní 1827/48, 748 01  Hlučín ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.073563","15.983259"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Hradecká 1122, 534 01  Holice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.135575","12.796824"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Nová 1016, 357 31   Horní Slavkov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.221229","15.833608"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Akademika Bedrny 383, 500 02  Hradec Králové ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.084595","12.370789"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Ašská 2393/8, 350 02  Cheb ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.238852","12.744307"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Tovární ul., 357 35  Chodov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.485023","13.437675"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Písečná 5376, 430 04  Chomutov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.464615","13.407461"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Bezručova 5429, 430 01  Chomutov II ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.463498","13.410737"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Dr. Farského 4732, 430 01  Chomutov Prior ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.099654","16.376072"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Krumlovská 352/7, 664 91  Ivančice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.733527","15.181701"],
+["Pobočka NOVÁK maso-uzeniny - TESCO U Přehrady 4003/40, 466 01  Jablonec nad Nisou ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.356776","15.915531"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Na Kameni 23, 551 01    Jaroměř ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.433327","15.364681"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Husova ul., 1112, 506 01  Jičín ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.605366","15.506561"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Jana Buchara 986, 514 01   Jilemnice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.384192","13.270092"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Kpt. Jaroše 1682, 432 01  Kadaň ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.908544","14.58684"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Pražská ul., 251 68  Kamenice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.241021","12.849037"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Třeboňská 2, 360 19  Karlovy Vary - Rybáře ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.238429","12.837283"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Frimlova 963/1, 360 17  Karlovy Vary Stará Role ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.229624","12.865144"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Západní 1/521, 360 01  Karlovy Vary-II Tuhnice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.387306","13.036697"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Nádražní 747, 345 06  Kdyně ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.140366","14.080975"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Vítězná 118, 272 04  Kladno ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.140644","14.117474"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Milady Horákové 2751, 272 01  Kladno II ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.13682","14.132758"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Pražská ul, 272 01  Kladno III ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.386862","13.180437"],
+["Pobočka NOVÁK maso-uzeniny - Norma Chomutovská 464 , 431 51  Klášterec nad Ohří ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.024913","15.187382"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Benešova ul., 280 02   Kolín ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.249636","14.319822"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Mostní 731, 278 01  Kralupy n. Vlt. ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.685895","13.89041"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Revoluční 311, 417 43  Krupka ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.784318","15.060288"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Vrchlického 830/41, 460 14  Liberec ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.751341","15.062052"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Na Žižkově 973/10, 460 06  Liberec ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.735834","15.162575"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Olbrachtova 808/2, 460 15  Liberec - Olbrachtova ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.541783","14.117394"],
+["Pobočka NOVÁK maso-uzeniny - JTH Kamýcká 2275, 412 01, Litoměři  Litoměřice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.705725","17.074098"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Dukelská 435/13, 784 01  Litovel ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.595629","13.605447"],
+["Pobočka NOVÁK maso-uzeniny - PENNY U Bílého sloupu 2144, 436 01  Litvínov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.964552","12.693894"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Chebská ul., 353 01  Mariánské Lázně ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.346137","14.49072"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Veslařská 3430, 276 01   Mělník ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.225936","14.876027"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Italská 705, 289 23  Milovice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.653738","14.728773"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Husova 661, 471 24   Mimoň ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.430898","14.914334"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Havlíčkova 1395, 293 01    Mladá Boleslav ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.516042","14.973635"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Víta Nejedlého 1498, 295 01  Mnichovo Hradiště ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","49.049208","15.81403"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Tyršova 206, 676 02  Moravské Budějovice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.493842","13.654325"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Višňová 3129, 434 01  Most IV ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.252038","14.513433"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Na Výsluní 1368, 277 11  Neratovice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.563496","16.076501"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Masarykova 134, 592 31  Nové Město na Moravě ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.757715","14.555156"],
+["Pobočka NOVÁK maso-uzeniny - TESCO T.G. Masaryka 830, 473 01   Nový Bor ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.235772","15.489571"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Revoluční 775, 504 01  Nový Bydžov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.577105","17.256579"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Rooseveltova 100, 779 00  Olomouc ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.62668","13.691419"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Tyršova 684, 417 05  Osek ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.843521","18.306102"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Hladnovská 1944, 710 00  Ostrava - Slezská ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.30964","12.942307"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Jáchymovská 1373, 363 01  Ostrov n. Ohří ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.035797","15.779439"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Karla IV., 530 02    Pardubice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.0937","15.030311"],
+["Pobočka NOVÁK maso-uzeniny - TESCO ul. V Kaštánkách, Pečky, 289 11  Pečky ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","48.977611","16.520975"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Sportovní 1610, 691 23   Pohořelice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.721047","16.265677"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Terezy Novákové 1100, 572 01  Polička ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.061515","14.589228"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Starodubečská 16, Praha 10  Praha 10 Dubeč ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.033328","14.53243"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Mendelova 665/13, Praha 4  Praha 10 Háje ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.051747","14.531249"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Hornoměcholupská 492, Praha 10  Praha 10 Horní Měcholupy ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.056862","14.497615"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Jabloňová 3000/15, Praha 10  Praha 10 Záběhlice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.086516","14.487409"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Malešická 2799/22b, 130 00  Praha 3 Žižkov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.011785","14.428979"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Hasova 1999, 143 00, Praha 4  Praha 4 Modřany ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.023867","14.441333"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Nad Lesním divadlem 83, Praha 4 Novodvorská ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.044686","14.321761"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Mukařovského 168,  Praha 13  Praha 5 Luka ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.073923","14.40668"],
+["Pobočka NOVÁK maso-uzeniny - TESCO náměstí 14.října 83/15, Praha 5  Praha 5 Smích.tržnice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.10418","14.372707"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Na Pískách 1815, 160 00, Praha 6  Praha 6 Na Pískách ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.135191","14.507668"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Havířovská 473, 199 00   Praha 9 Letňany ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.68907","14.012417"],
+["Pobočka NOVÁK maso-uzeniny - JTH Kpt. Olesinského 16, 261 01  Příbram ","Otevírací doba (PO - PÁ): 7 - 18 ","Otevírací doba (SO): 7 - 18 ","Otevírací doba (NE): 7 - 13 ","49.088388","16.60372"],
+["Pobočka NOVÁK maso-uzeniny - Tesco Masarykova 1000, Rajhrad  Rajhrad ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.424544","14.239291"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Neklanova 2693, 413 01  Roudnice n. Labem ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.161563","14.382784"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Lidická 2419, 252 63  Roztoky ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.94499","14.558812"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Pražská 23, 408 01  Rumburk ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.164411","16.283865"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Smetanova 1607, 516 01  Rychnov n. Kněžnou ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.004026","14.665998"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Říčanská 2055, 251 01  Říčany ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.598179","15.327844"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Bořkovská 573, 513 01  Semily ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.601366","15.326153"],
+["Pobočka NOVÁK maso-uzeniny - JTH Nádražní 587, 513 01  Semily II ","Otevírací doba (PO - PÁ): 7 - 18 ","Otevírací doba (SO): 7 - 18 ","Otevírací doba (NE): 7 - 15 ","49.843467","15.996554"],
+["Pobočka NOVÁK maso-uzeniny - Tesco Obchvatová 995, 539 73 Skuteč  Skuteč ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.22832","14.089433"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Ouvalova 550, 274 01  Slaný ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.080269","17.885871"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Hrádecká 251, 763 21 Slavičín  Slavičín ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.263561","14.711711"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Obchodní 789, 392 01  Soběslav ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.173907","12.65257"],
+["Pobočka NOVÁK maso-uzeniny - PENNY B. Němcové 2057, 356 01  Sokolov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.149072","13.961736"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Osvobození 540, 273 03  Stochov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.25805","13.905283"],
+["Pobočka NOVÁK maso-uzeniny -   Bezděkovská 30, Strakonice  Strakonice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 19 ","Otevírací doba (NE): 7 - 15 ","49.710347","18.053024"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Budovatelská 889, 742 13  Studénka ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.75285","16.475105"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Brněnská 801/1, 568 02  Svitavy ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","51.003078","14.462622"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Rumburská ul., Šluknov 477 77  Šluknov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","51.005165","14.455205"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Zámecká 1110, 407 77  Šluknov II ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.45336","14.374321"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Obchodní 663, 411 08   Štětí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.411685","14.678267"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Purkyňova 2986, 390 01  Tábor ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.186178","15.465466"],
+["Pobočka NOVÁK maso-uzeniny -   Myslibořská 299, 588 56  Telč ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.65311","13.83908"],
+["Pobočka NOVÁK maso-uzeniny - PENNY U Červeného kostela 1863, 415 01  Teplice ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.578592","15.894041"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Horská ul. 571, 541 02  Trutnov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.008478","14.755955"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Táboritská 1195, 379 01  Třeboň ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","49.670048","18.679606"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Jablůnkovská, 739 61  Třinec ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.577699","15.147739"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Sobotecká 258, 511 01  Turnov ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","50.578745","15.15545"],
+["Pobočka NOVÁK maso-uzeniny -   Svobodova 2248, 511 01 Turnov  Turnov II ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 19 ","Otevírací doba (NE): 7 - 13 ","50.675931","14.109426"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Seifertova 574, 403 31  Ústí nad Labem ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.661846","14.033029"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Špitálské nám. 3517, 1B 635/2  Ústí nad Labem II ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.97666","16.402313"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Letohradská 1485, 562 01  Ústí nad Orlicí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.350256","16.019651"],
+["Pobočka NOVÁK maso-uzeniny - PENNY K Novému nádraží 2059/6,  Velké Meziříčí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 17 ","49.180383","14.692067"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Budějovická 650, 391 81  Veselí nad Lužnicí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.147393","14.181838"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Sušická 617, 385 01  Vimperk ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.617865","15.612999"],
+["Pobočka NOVÁK maso-uzeniny - TESCO Dr. Hajného 1274, 389 01  Vodňany ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","50.619443","15.620373"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Al. Jiráska 1474, 543 01 Vrchlabí  Vrchlabí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","50.05863","14.489704"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Nádražní 1513, 543 01  Vrchlabí ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","49.746561","15.098783"],
+["Pobočka NOVÁK maso-uzeniny - PENNY Žirovnická 316/8,  Praha 10  Zahradní Město ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 20 ","49.464045","18.091794"],
+["Pobočka NOVÁK maso-uzeniny - TESCO 1. máje 1043, 285 22    Zruč n. Sázavou ","Otevírací doba (PO - PÁ): 7 - 20 ","Otevírací doba (SO): 7 - 20 ","Otevírací doba (NE): 7 - 15 ","49.56097","15.930508"]
+        ];
+        
+        gmarkers = [];
+
+var infowindow = new google.maps.InfoWindow();
+
+var image = 'images/favicon.png';
+
+function createMarker(latlng, html) {
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        icon: image
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(html);
+        infowindow.open(map, marker);
+    });
+    return marker;
+}
+
+
+
+for (var i = 0; i < locations.length; i++) {
+    gmarkers[locations[i][0]] =
+    createMarker(new google.maps.LatLng(locations[i][4], locations[i][5]), locations[i][0] + "<br>" + locations[i][1] + "<br>" + locations[i][2] + "<br>" + locations[i][3]);
+}
+                
+    var logoControlDiv = document.createElement('div');
+    
+    var logoControl = new LogoControl(logoControlDiv, map);
+ 
+logoControlDiv.index = 1;
+map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(logoControlDiv);
+
+var styledMap = new google.maps.StyledMapType( styles, {name: "Styled Map"} );
+map.mapTypes.set('map_style', styledMap);
+map.setMapTypeId('map_style');        
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+  <div class="wrap">
+    <div id="map-canvas"></div>
+   <!--<div id="locations">
+    <h3>
+        <a href="javascript:google.map.setCenter(50.0851202,14.5013295),'click');" class="button3">Hlavní město Praha</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 2'],'click');" class="button3">Středočeský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 3'],'click');" class="button3">Jihočeský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 4'],'click');" class="button3">Plzeňský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 5'],'click');" class="button3">Karlovarský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 6'],'click');" class="button3">Ústecký kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 7'],'click');" class="button3">Liberecký kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 8'],'click');" class="button3">Královéhradecký kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 9'],'click');" class="button3">Pardubický kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 10'],'click');" class="button3">Olomoucký kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 11'],'click');" class="button3">Moravskoslezský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 12'],'click');" class="button3">Jihomoravský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 13'],'click');" class="button3">Zlínský kraj</a>
+        <a href="javascript:google.maps.event.trigger(gmarkers['Location 14'],'click');" class="button3">Kraj Vysočina</a>
+    </h3>
+    </div>  -->
+</div>
+    <!--<button onclick="console.log( 'Lat &amp; Long: ' + map.getCenter().k + ',' + map.getCenter().A + ' Zoom: ' + map.getZoom() );">Najdi mapu poboček</button>-->
+  </body>
+</html>
